@@ -1,0 +1,578 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YUSAN TECH — Student Management System</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f0f4ff;
+      color: #1a1a2e;
+    }
+
+    /* ── NAV ── */
+    nav {
+      padding: 0 40px;
+      background: linear-gradient(135deg, #0a1628 0%, #1a3fa8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 75px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      box-shadow: 0 4px 20px rgba(26,63,168,0.4);
+    }
+
+    .nav_name {
+      color: #D4A017;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav_name i { font-size: 26px; }
+
+    .nav_links { display: flex; gap: 15px; }
+
+    .nav_links a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 22px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+    }
+
+    .nav_links .btn-register {
+      background: #D4A017;
+      color: #0a1628;
+      font-weight: 700;
+    }
+
+    .nav_links .btn-login {
+      border: 2px solid #D4A017;
+      color: #D4A017;
+    }
+
+    .nav_links a:hover { transform: translateY(-2px); opacity: 0.9; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a1628 0%, #1a3fa8 60%, #2d5be3 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: rgba(212,160,23,0.08);
+      border-radius: 50%;
+      top: -100px; right: -100px;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+      bottom: -80px; left: -80px;
+    }
+
+    .hero-badge {
+      background: rgba(212,160,23,0.15);
+      border: 1px solid rgba(212,160,23,0.4);
+      color: #D4A017;
+      padding: 6px 20px;
+      border-radius: 25px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 25px;
+      display: inline-block;
+    }
+
+    .hero h1 {
+      color: #fff;
+      font-size: 58px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 15px;
+      z-index: 1;
+      position: relative;
+    }
+
+    .hero h1 span { color: #D4A017; }
+
+    .hero .subtitle {
+      color: rgba(255,255,255,0.75);
+      font-size: 18px;
+      max-width: 550px;
+      margin-bottom: 10px;
+      z-index: 1;
+      position: relative;
+    }
+
+    .hero .credit {
+      color: rgba(212,160,23,0.8);
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 40px;
+      z-index: 1;
+      position: relative;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: center;
+      z-index: 1;
+      position: relative;
+      margin-bottom: 55px;
+    }
+
+    .hero-btns a {
+      text-decoration: none;
+      padding: 14px 38px;
+      border-radius: 35px;
+      font-size: 16px;
+      font-weight: 700;
+      transition: all 0.35s ease;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #D4A017, #f0b429);
+      color: #0a1628;
+      box-shadow: 0 8px 30px rgba(212,160,23,0.45);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.5);
+      color: #fff;
+    }
+
+    .hero-btns a:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(0,0,0,0.3); }
+
+    .hero-icon {
+      font-size: 90px;
+      color: rgba(212,160,23,0.6);
+      z-index: 1;
+      position: relative;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-18px); }
+    }
+
+    /* ── STATS ── */
+    .stats {
+      background: #fff;
+      padding: 50px 40px;
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.07);
+    }
+
+    .stat-item { text-align: center; }
+
+    .stat-item .number {
+      font-size: 42px;
+      font-weight: 800;
+      color: #1a3fa8;
+    }
+
+    .stat-item .label {
+      font-size: 14px;
+      color: #666;
+      font-weight: 500;
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      padding: 80px 40px;
+      text-align: center;
+      background: #f0f4ff;
+    }
+
+    .section-tag {
+      color: #1a3fa8;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .features h2 {
+      font-size: 40px;
+      font-weight: 800;
+      color: #0a1628;
+      margin-bottom: 12px;
+    }
+
+    .features .sub {
+      color: #666;
+      font-size: 16px;
+      margin-bottom: 55px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 35px 25px;
+      box-shadow: 0 6px 25px rgba(26,63,168,0.08);
+      transition: all 0.3s ease;
+      border-bottom: 4px solid transparent;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      border-bottom-color: #D4A017;
+      box-shadow: 0 15px 40px rgba(26,63,168,0.15);
+    }
+
+    .feature-card .icon {
+      width: 60px; height: 60px;
+      background: linear-gradient(135deg, #1a3fa8, #2d5be3);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 24px;
+      color: #fff;
+    }
+
+    .feature-card h3 { font-size: 18px; font-weight: 700; color: #0a1628; margin-bottom: 10px; }
+    .feature-card p { font-size: 14px; color: #777; line-height: 1.6; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      padding: 80px 40px;
+      background: linear-gradient(135deg, #0a1628 0%, #1a3fa8 100%);
+      text-align: center;
+    }
+
+    .testimonials .section-tag { color: #D4A017; }
+
+    .testimonials h2 {
+      font-size: 38px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .testimonials .sub { color: rgba(255,255,255,0.6); margin-bottom: 50px; }
+
+    .comments-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .comment-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      padding: 28px 20px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .comment-card:hover {
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-5px);
+    }
+
+    .comment-card .avatar {
+      width: 65px; height: 65px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #D4A017;
+      margin-bottom: 14px;
+    }
+
+    .comment-card .avatar-placeholder {
+      width: 65px; height: 65px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #D4A017, #f0b429);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; font-weight: 700; color: #0a1628;
+      margin: 0 auto 14px;
+      border: 3px solid rgba(255,255,255,0.2);
+    }
+
+    .comment-card h3 { color: #D4A017; font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .comment-card hr { border-color: rgba(255,255,255,0.15); margin-bottom: 12px; }
+    .comment-card p { color: rgba(255,255,255,0.8); font-size: 13px; line-height: 1.5; }
+
+    .stars { color: #D4A017; font-size: 12px; margin-bottom: 8px; }
+
+    /* ── CTA ── */
+    .cta-section {
+      padding: 80px 40px;
+      text-align: center;
+      background: #fff;
+    }
+
+    .cta-section h2 {
+      font-size: 38px;
+      font-weight: 800;
+      color: #0a1628;
+      margin-bottom: 15px;
+    }
+
+    .cta-section p { color: #666; font-size: 16px; margin-bottom: 35px; }
+
+    .cta-btns {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-btns a {
+      text-decoration: none;
+      padding: 14px 40px;
+      border-radius: 35px;
+      font-size: 16px;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+
+    .cta-btns .btn-gold {
+      background: linear-gradient(135deg, #D4A017, #f0b429);
+      color: #0a1628;
+      box-shadow: 0 8px 25px rgba(212,160,23,0.4);
+    }
+
+    .cta-btns .btn-blue {
+      background: linear-gradient(135deg, #1a3fa8, #2d5be3);
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(26,63,168,0.35);
+    }
+
+    .cta-btns a:hover { transform: translateY(-4px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: linear-gradient(135deg, #0a1628 0%, #1a2a50 100%);
+      color: #fff;
+      padding: 50px 40px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    footer .footer-brand { font-size: 22px; font-weight: 800; color: #D4A017; }
+    footer .footer-brand span { display: block; font-size: 12px; color: rgba(255,255,255,0.5); font-weight: 400; margin-top: 4px; }
+
+    footer p { color: rgba(255,255,255,0.6); font-size: 13px; }
+
+    .social-icons { display: flex; gap: 18px; }
+
+    .social-icons i {
+      font-size: 22px;
+      color: rgba(255,255,255,0.7);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .social-icons i:hover { color: #D4A017; transform: translateY(-3px); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav_name { font-size: 22px; }
+      .hero h1 { font-size: 36px; }
+      .hero .subtitle { font-size: 15px; }
+      .stats { gap: 30px; }
+      .features, .testimonials, .cta-section { padding: 60px 20px; }
+      footer { flex-direction: column; text-align: center; padding: 40px 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .nav_links .btn-login { display: none; }
+      .hero h1 { font-size: 28px; }
+      .hero-btns a { padding: 12px 28px; font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <p class="nav_name"><i class="fa-brands fa-rocketchat"></i> YUSAN TECH</p>
+  <div class="nav_links">
+    <a href="{% url 'register' %}" class="btn-register"><i class="fa-solid fa-user-plus"></i> Register</a>
+    <a href="{% url 'login' %}" class="btn-login"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-badge">🎓 Official Student Management System</span>
+  <h1>Welcome to <span>Yusan Tech</span></h1>
+  <p class="subtitle">This is an Official Students Management System — Get your admission through this portal only.</p>
+  <p class="credit"><strong>Created by Yusan Tech Group</strong></p>
+  <div class="hero-btns">
+    <a href="{% url 'register' %}" class="btn-primary"><i class="fa-solid fa-user-plus"></i> &nbsp;Get Admission</a>
+    <a href="{% url 'login' %}" class="btn-secondary"><i class="fa-solid fa-right-to-bracket"></i> &nbsp;Student Login</a>
+  </div>
+  <div class="hero-icon">
+    <i class="fa-brands fa-rocketchat"></i>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item">
+    <div class="number">500+</div>
+    <div class="label">Students Admitted</div>
+  </div>
+  <div class="stat-item">
+    <div class="number">8</div>
+    <div class="label">Departments</div>
+  </div>
+  <div class="stat-item">
+    <div class="number">100%</div>
+    <div class="label">Online Process</div>
+  </div>
+  <div class="stat-item">
+    <div class="number">24/7</div>
+    <div class="label">Portal Access</div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features">
+  <p class="section-tag">✦ WHY CHOOSE US</p>
+  <h2>Everything You Need</h2>
+  <p class="sub">Simple, fast and secure student admission portal</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="icon"><i class="fa-solid fa-bolt"></i></div>
+      <h3>Fast Admission</h3>
+      <p>Complete your registration in minutes and get instant admission confirmation.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon"><i class="fa-solid fa-shield-halved"></i></div>
+      <h3>Secure Portal</h3>
+      <p>Your data is safe with our encrypted and secure student management system.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon"><i class="fa-solid fa-id-card"></i></div>
+      <h3>Unique Reg Number</h3>
+      <p>Every student gets a unique registration number instantly upon admission.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon"><i class="fa-solid fa-laptop-code"></i></div>
+      <h3>Tech Focused</h3>
+      <p>Multiple technology-focused departments to match your career goals.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <p class="section-tag">✦ TESTIMONIALS</p>
+  <h2>What Our Students Say</h2>
+  <p class="sub">About our platform</p>
+  <div class="comments-grid">
+    <div class="comment-card">
+      <img class="avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Sadiq Ahmad">
+      <h3>Sadiq Ahmad</h3>
+      <div class="stars">★★★★★</div>
+      <hr>
+      <p>Wow! I appreciate the effort put into this amazing platform.</p>
+    </div>
+    <div class="comment-card">
+      <img class="avatar" src="https://randomuser.me/api/portraits/men/44.jpg" alt="Jacob Smith">
+      <h3>Jacob Smith</h3>
+      <div class="stars">★★★★★</div>
+      <hr>
+      <p>Amazing project, my heartbeat! ❤️ Best portal I've used.</p>
+    </div>
+    <div class="comment-card">
+      <img class="avatar" src="https://randomuser.me/api/portraits/women/68.jpg" alt="Khadija Muhd">
+      <h3>Khadija Muhd</h3>
+      <div class="stars">★★★★★</div>
+      <hr>
+      <p>This system made my admission process so easy and fast!</p>
+    </div>
+    <div class="comment-card">
+      <img class="avatar" src="https://randomuser.me/api/portraits/men/76.jpg" alt="Cyber Smart">
+      <h3>Cyber Smart</h3>
+      <div class="stars">★★★★★</div>
+      <hr>
+      <p>Masha Allah. Gaskiya kayi aiki mai kyau. Well done!</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Ready to Join <span style="color:#1a3fa8">Yusan Tech?</span></h2>
+  <p>Start your admission process today — it's completely free and takes just a few minutes.</p>
+  <div class="cta-btns">
+    <a href="{% url 'register' %}" class="btn-gold"><i class="fa-solid fa-graduation-cap"></i> &nbsp;Apply Now</a>
+    <a href="{% url 'login' %}" class="btn-blue"><i class="fa-solid fa-right-to-bracket"></i> &nbsp;Student Login</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <i class="fa-brands fa-rocketchat"></i> YUSAN TECH
+    <span>Official Student Management System</span>
+  </div>
+  <p>© Powered by ASAF TECH CORP | All Rights Reserved.</p>
+  <div class="social-icons">
+    <i class="fa-brands fa-x-twitter"></i>
+    <i class="fa-brands fa-whatsapp"></i>
+    <i class="fa-brands fa-square-facebook"></i>
+    <i class="fa-brands fa-rocketchat"></i>
+  </div>
+</footer>
+
+</body>
+</html>

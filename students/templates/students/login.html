@@ -1,0 +1,276 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — YUSAN TECH</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a1628 0%, #1a3fa8 60%, #2d5be3 100%);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAV */
+    nav {
+      padding: 0 40px;
+      background: rgba(10,22,40,0.85);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+      border-bottom: 1px solid rgba(212,160,23,0.2);
+    }
+
+    .nav_name {
+      color: #D4A017;
+      font-size: 24px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-back a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.7);
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+
+    .nav-back a:hover { color: #D4A017; }
+
+    /* MAIN */
+    .page-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.97);
+      border-radius: 24px;
+      padding: 48px 44px;
+      width: 100%;
+      max-width: 460px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #1a3fa8, #2d5be3, #D4A017);
+    }
+
+    .card-header { text-align: center; margin-bottom: 36px; }
+
+    .card-header .icon-wrap {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, #D4A017, #f0b429);
+      border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 18px;
+      font-size: 30px; color: #0a1628;
+      box-shadow: 0 8px 25px rgba(212,160,23,0.4);
+    }
+
+    .card-header h2 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #0a1628;
+      margin-bottom: 6px;
+    }
+
+    .card-header p { color: #888; font-size: 14px; }
+
+    .form-group { margin-bottom: 22px; }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-wrap .inp-icon {
+      position: absolute;
+      left: 15px;
+      color: #1a3fa8;
+      font-size: 16px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px 15px 14px 46px;
+      border: 2px solid #e8edf5;
+      border-radius: 12px;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
+      color: #1a1a2e;
+      background: #f8faff;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    .form-group input:focus {
+      border-color: #1a3fa8;
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(26,63,168,0.08);
+    }
+
+    .help-text {
+      margin-top: 6px;
+      font-size: 11px;
+      color: #aaa;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #D4A017, #f0b429);
+      color: #0a1628;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(212,160,23,0.5);
+    }
+
+    .register-link {
+      text-align: center;
+      margin-top: 22px;
+      font-size: 13px;
+      color: #888;
+    }
+
+    .register-link a { color: #1a3fa8; font-weight: 600; text-decoration: none; }
+    .register-link a:hover { text-decoration: underline; }
+
+    .alert-error {
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 22px;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff0f0;
+      border: 1px solid #ffcccc;
+      color: #c0392b;
+    }
+
+    .info-box {
+      background: linear-gradient(135deg, rgba(26,63,168,0.06), rgba(26,63,168,0.02));
+      border: 1px solid rgba(26,63,168,0.15);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 24px;
+      font-size: 12px;
+      color: #555;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .info-box i { color: #1a3fa8; margin-top: 2px; flex-shrink: 0; }
+
+    @media (max-width: 480px) {
+      .card { padding: 32px 24px; }
+      nav { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <p class="nav_name"><i class="fa-brands fa-rocketchat"></i> YUSAN TECH</p>
+  <div class="nav-back">
+    <a href="{% url 'home' %}"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="card">
+    <div class="card-header">
+      <div class="icon-wrap"><i class="fa-solid fa-right-to-bracket"></i></div>
+      <h2>Student Login</h2>
+      <p>Welcome back! Enter your credentials to continue</p>
+    </div>
+
+    <div class="info-box">
+      <i class="fa-solid fa-circle-info"></i>
+      <span>Use your <strong>Registration Number</strong> (e.g. DG/ICT/25/0001) and the password you created during registration.</span>
+    </div>
+
+    {% if error %}
+    <div class="alert-error">
+      <i class="fa-solid fa-circle-exclamation"></i> {{ error }}
+    </div>
+    {% endif %}
+
+    <form method="POST" action="{% url 'login' %}">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label>Registration Number</label>
+        <div class="input-wrap">
+          <i class="inp-icon fa-solid fa-id-badge"></i>
+          <input type="text" name="reg_number" placeholder="DG/ICT/25/0001"
+                 value="{{ reg_number|default:'' }}" required autocomplete="username">
+        </div>
+        <p class="help-text">Format: DG/ICT/25/XXXX</p>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <div class="input-wrap">
+          <i class="inp-icon fa-solid fa-lock"></i>
+          <input type="password" name="password" placeholder="Enter your password"
+                 required autocomplete="current-password">
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit">
+        <i class="fa-solid fa-right-to-bracket"></i> &nbsp;Login to Portal
+      </button>
+    </form>
+
+    <p class="register-link">
+      New student? <a href="{% url 'register' %}">Apply for admission</a>
+    </p>
+  </div>
+</div>
+
+</body>
+</html>

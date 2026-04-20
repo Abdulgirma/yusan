@@ -1,0 +1,459 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — YUSAN TECH</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      background: #f0f4ff;
+    }
+
+    /* NAV */
+    nav {
+      padding: 0 40px;
+      background: linear-gradient(135deg, #0a1628 0%, #1a3fa8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      box-shadow: 0 4px 20px rgba(26,63,168,0.4);
+      position: sticky; top: 0; z-index: 100;
+    }
+
+    .nav_name {
+      color: #D4A017;
+      font-size: 24px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+
+    .nav-right .welcome-text {
+      color: rgba(255,255,255,0.75);
+      font-size: 14px;
+    }
+
+    .nav-right .welcome-text strong { color: #D4A017; }
+
+    .btn-logout {
+      text-decoration: none;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex; align-items: center; gap: 7px;
+    }
+
+    .btn-logout:hover {
+      background: rgba(255,255,255,0.22);
+      transform: translateY(-1px);
+    }
+
+    /* HERO BANNER */
+    .dash-hero {
+      background: linear-gradient(135deg, #0a1628 0%, #1a3fa8 60%, #2d5be3 100%);
+      padding: 50px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dash-hero::before {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      background: rgba(212,160,23,0.06);
+      border-radius: 50%;
+      top: -100px; right: -50px;
+    }
+
+    .dash-hero .badge {
+      background: rgba(212,160,23,0.2);
+      border: 1px solid rgba(212,160,23,0.4);
+      color: #D4A017;
+      padding: 5px 18px;
+      border-radius: 25px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      display: inline-block;
+      margin-bottom: 18px;
+    }
+
+    .dash-hero h1 {
+      color: #fff;
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .dash-hero h1 span { color: #D4A017; }
+
+    .dash-hero p {
+      color: rgba(255,255,255,0.65);
+      font-size: 15px;
+    }
+
+    /* MAIN CONTENT */
+    .main-content {
+      max-width: 900px;
+      margin: -30px auto 60px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* ID CARD */
+    .id-card {
+      background: #fff;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(26,63,168,0.15);
+      margin-bottom: 28px;
+    }
+
+    .id-card-header {
+      background: linear-gradient(135deg, #1a3fa8, #2d5be3);
+      padding: 28px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .id-card-header .school-info { display: flex; align-items: center; gap: 14px; }
+
+    .id-card-header .school-logo {
+      width: 52px; height: 52px;
+      background: rgba(212,160,23,0.2);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; color: #D4A017;
+      border: 2px solid rgba(212,160,23,0.4);
+    }
+
+    .id-card-header .school-name {
+      color: #D4A017;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .id-card-header .school-sub {
+      color: rgba(255,255,255,0.65);
+      font-size: 11px;
+    }
+
+    .id-card-header .card-label {
+      background: rgba(212,160,23,0.15);
+      border: 1px solid rgba(212,160,23,0.35);
+      color: #D4A017;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .id-card-body {
+      padding: 36px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .detail-item {
+      background: #f8faff;
+      border-radius: 14px;
+      padding: 18px 20px;
+      border: 1px solid #e8edf5;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .detail-item:hover {
+      border-color: #1a3fa8;
+      box-shadow: 0 4px 15px rgba(26,63,168,0.1);
+      transform: translateY(-2px);
+    }
+
+    .detail-item.full-width { grid-column: 1 / -1; }
+
+    .detail-item .d-icon {
+      width: 46px; height: 46px;
+      border-radius: 13px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; color: #fff;
+      flex-shrink: 0;
+    }
+
+    .icon-blue { background: linear-gradient(135deg, #1a3fa8, #2d5be3); }
+    .icon-gold { background: linear-gradient(135deg, #D4A017, #f0b429); }
+    .icon-green { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+    .icon-purple { background: linear-gradient(135deg, #8e44ad, #9b59b6); }
+
+    .d-text .d-label { font-size: 11px; color: #999; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .d-text .d-value { font-size: 16px; color: #0a1628; font-weight: 700; margin-top: 2px; }
+
+    /* REG NUMBER SPECIAL */
+    .reg-card {
+      background: linear-gradient(135deg, #D4A017, #f0b429);
+      border-radius: 20px;
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      box-shadow: 0 10px 35px rgba(212,160,23,0.35);
+      margin-bottom: 28px;
+    }
+
+    .reg-card .reg-left { display: flex; align-items: center; gap: 16px; }
+
+    .reg-card .reg-icon {
+      width: 56px; height: 56px;
+      background: rgba(10,22,40,0.15);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; color: #0a1628;
+    }
+
+    .reg-card .reg-label { font-size: 12px; color: rgba(10,22,40,0.6); font-weight: 700; text-transform: uppercase; margin-bottom: 4px; }
+    .reg-card .reg-number { font-size: 26px; font-weight: 900; color: #0a1628; letter-spacing: 1.5px; }
+
+    .reg-card .copy-btn {
+      background: rgba(10,22,40,0.15);
+      border: none;
+      color: #0a1628;
+      padding: 10px 22px;
+      border-radius: 25px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .reg-card .copy-btn:hover { background: rgba(10,22,40,0.25); }
+
+    /* STATUS */
+    .status-card {
+      background: linear-gradient(135deg, #0a1628, #1a3fa8);
+      border-radius: 20px;
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .status-left { display: flex; align-items: center; gap: 16px; }
+
+    .status-icon {
+      width: 52px; height: 52px;
+      background: rgba(39,174,96,0.2);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; color: #27ae60;
+      border: 2px solid rgba(39,174,96,0.4);
+    }
+
+    .status-left .s-label { font-size: 12px; color: rgba(255,255,255,0.5); font-weight: 700; text-transform: uppercase; }
+    .status-left .s-value { font-size: 18px; color: #fff; font-weight: 700; margin-top: 3px; }
+
+    .status-badge {
+      background: rgba(39,174,96,0.2);
+      border: 1px solid rgba(39,174,96,0.4);
+      color: #2ecc71;
+      padding: 8px 22px;
+      border-radius: 25px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pulse {
+      width: 10px; height: 10px;
+      background: #2ecc71;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.6; }
+    }
+
+    /* HOME LINK */
+    .bottom-actions {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .btn-home {
+      display: inline-block;
+      text-decoration: none;
+      color: #888;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+
+    .btn-home:hover { color: #1a3fa8; }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 20px; }
+      .nav-right .welcome-text { display: none; }
+      .dash-hero { padding: 36px 20px; }
+      .dash-hero h1 { font-size: 26px; }
+      .id-card-body { grid-template-columns: 1fr; padding: 24px 20px; }
+      .detail-item.full-width { grid-column: 1; }
+      .reg-card { padding: 22px 20px; }
+      .reg-card .reg-number { font-size: 20px; }
+      .status-card { padding: 22px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <p class="nav_name"><i class="fa-brands fa-rocketchat"></i> YUSAN TECH</p>
+  <div class="nav-right">
+    <span class="welcome-text">Hello, <strong>{{ student.full_name|truncatechars:15 }}</strong></span>
+    <a href="{% url 'logout' %}" class="btn-logout">
+      <i class="fa-solid fa-right-from-bracket"></i> Logout
+    </a>
+  </div>
+</nav>
+
+<!-- HERO BANNER -->
+<div class="dash-hero">
+  <span class="badge">🎓 STUDENT PORTAL</span>
+  <h1>Welcome, <span>{{ student.full_name }}</span>!</h1>
+  <p>Here are your full admission details. Keep your reg number safe.</p>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
+  <!-- REG NUMBER CARD -->
+  <div class="reg-card">
+    <div class="reg-left">
+      <div class="reg-icon"><i class="fa-solid fa-id-badge"></i></div>
+      <div>
+        <div class="reg-label">Registration Number</div>
+        <div class="reg-number" id="regNum">{{ student.reg_number }}</div>
+      </div>
+    </div>
+    <button class="copy-btn" onclick="copyRegNum()">
+      <i class="fa-solid fa-copy"></i> Copy
+    </button>
+  </div>
+
+  <!-- STUDENT ID CARD -->
+  <div class="id-card">
+    <div class="id-card-header">
+      <div class="school-info">
+        <div class="school-logo"><i class="fa-brands fa-rocketchat"></i></div>
+        <div>
+          <div class="school-name">YUSAN TECH</div>
+          <div class="school-sub">Official Student ID Card</div>
+        </div>
+      </div>
+      <div class="card-label">ADMITTED ✓</div>
+    </div>
+
+    <div class="id-card-body">
+      <div class="detail-item">
+        <div class="d-icon icon-blue"><i class="fa-solid fa-user"></i></div>
+        <div class="d-text">
+          <div class="d-label">Full Name</div>
+          <div class="d-value">{{ student.full_name }}</div>
+        </div>
+      </div>
+
+      <div class="detail-item">
+        <div class="d-icon icon-green"><i class="fa-solid fa-phone"></i></div>
+        <div class="d-text">
+          <div class="d-label">Phone Number</div>
+          <div class="d-value">{{ student.phone_number }}</div>
+        </div>
+      </div>
+
+      <div class="detail-item full-width">
+        <div class="d-icon icon-purple"><i class="fa-solid fa-building-columns"></i></div>
+        <div class="d-text">
+          <div class="d-label">Department</div>
+          <div class="d-value">{{ dept_full }}</div>
+        </div>
+      </div>
+
+      <div class="detail-item full-width">
+        <div class="d-icon icon-gold"><i class="fa-solid fa-calendar-check"></i></div>
+        <div class="d-text">
+          <div class="d-label">Date Admitted</div>
+          <div class="d-value">{{ student.created_at|date:"F j, Y — g:i A" }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATUS CARD -->
+  <div class="status-card">
+    <div class="status-left">
+      <div class="status-icon"><i class="fa-solid fa-check-double"></i></div>
+      <div>
+        <div class="s-label">Admission Status</div>
+        <div class="s-value">Fully Admitted — Class of 2025</div>
+      </div>
+    </div>
+    <div class="status-badge">
+      <div class="pulse"></div> Active Student
+    </div>
+  </div>
+
+  <div class="bottom-actions">
+    <a href="{% url 'home' %}" class="btn-home">
+      <i class="fa-solid fa-house"></i> Back to Home Page
+    </a>
+  </div>
+
+</div>
+
+<script>
+  function copyRegNum() {
+    const text = document.getElementById('regNum').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fa-solid fa-copy"></i> Copy';
+      }, 2000);
+    });
+  }
+</script>
+
+</body>
+</html>

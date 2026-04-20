@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login — YUSAN TECH</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif; min-height: 100vh;
+      background: linear-gradient(135deg, #0a1628 0%, #1a3fa8 60%, #2d5be3 100%);
+      display: flex; flex-direction: column;
+    }
+    nav {
+      padding: 0 40px; background: rgba(10,22,40,0.85);
+      backdrop-filter: blur(12px); display: flex;
+      align-items: center; height: 68px;
+      border-bottom: 1px solid rgba(212,160,23,0.2);
+    }
+    .nav-brand { color: #D4A017; font-size: 24px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+
+    .page-wrap { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+
+    .card {
+      background: rgba(255,255,255,0.97); border-radius: 24px;
+      padding: 48px 44px; width: 100%; max-width: 440px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+      position: relative; overflow: hidden;
+    }
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 5px; background: linear-gradient(90deg, #0a1628, #1a3fa8, #D4A017);
+    }
+    .card-header { text-align: center; margin-bottom: 32px; }
+    .icon-wrap {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, #0a1628, #1a3fa8);
+      border-radius: 20px; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px; font-size: 30px; color: #D4A017;
+      box-shadow: 0 8px 25px rgba(26,63,168,0.4);
+    }
+    .card-header h2 { font-size: 24px; font-weight: 800; color: #0a1628; margin-bottom: 5px; }
+    .card-header p { color: #888; font-size: 13px; }
+
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; color: #333; margin-bottom: 8px; }
+    .input-wrap { position: relative; }
+    .input-wrap i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #1a3fa8; font-size: 15px; }
+    .form-group input {
+      width: 100%; padding: 13px 15px 13px 44px;
+      border: 2px solid #e8edf5; border-radius: 12px;
+      font-size: 14px; font-family: 'Poppins', sans-serif;
+      color: #1a1a2e; background: #f8faff; outline: none; transition: all 0.3s;
+    }
+    .form-group input:focus { border-color: #1a3fa8; background: #fff; box-shadow: 0 0 0 4px rgba(26,63,168,0.08); }
+
+    .btn-submit {
+      width: 100%; padding: 15px;
+      background: linear-gradient(135deg, #0a1628, #1a3fa8);
+      color: #fff; border: none; border-radius: 12px;
+      font-size: 16px; font-weight: 700; font-family: 'Poppins', sans-serif;
+      cursor: pointer; transition: all 0.3s; letter-spacing: 0.5px;
+    }
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(26,63,168,0.4); }
+
+    .alert-error {
+      padding: 12px 16px; border-radius: 10px; margin-bottom: 20px;
+      font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 10px;
+      background: #fff0f0; border: 1px solid #ffcccc; color: #c0392b;
+    }
+    .back-link { text-align: center; margin-top: 20px; font-size: 13px; }
+    .back-link a { color: #1a3fa8; font-weight: 600; text-decoration: none; }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-brand"><i class="fa-brands fa-rocketchat"></i> YUSAN TECH</div>
+</nav>
+
+<div class="page-wrap">
+  <div class="card">
+    <div class="card-header">
+      <div class="icon-wrap"><i class="fa-solid fa-user-shield"></i></div>
+      <h2>Admin Login</h2>
+      <p>Sign in to manage the student portal</p>
+    </div>
+
+    {% if error %}
+    <div class="alert-error">
+      <i class="fa-solid fa-circle-exclamation"></i> {{ error }}
+    </div>
+    {% endif %}
+
+    <form method="POST" action="{% url 'admin_login' %}">
+      {% csrf_token %}
+      <div class="form-group">
+        <label>Admin Username</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-user-tie"></i>
+          <input type="text" name="username" placeholder="Enter admin username" required autocomplete="off">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" name="password" placeholder="Enter admin password" required>
+        </div>
+      </div>
+      <button type="submit" class="btn-submit">
+        <i class="fa-solid fa-right-to-bracket"></i> &nbsp;Login to Admin Panel
+      </button>
+    </form>
+
+    <div class="back-link">
+      <a href="{% url 'home' %}"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
