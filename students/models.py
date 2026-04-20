@@ -21,8 +21,7 @@ class Student(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.full_name} - {self.reg_number}"
+        return f"{self.full_name} — {self.reg_number}"
 
     def get_department_display_name(self):
-        dept_dict = dict(self.DEPARTMENTS)
-        return dept_dict.get(self.department, self.department)
+        return dict(self.DEPARTMENTS).get(self.department, self.department)
