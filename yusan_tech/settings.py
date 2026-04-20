@@ -82,3 +82,8 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://yusantech.up.railway.app',
+    'https://web-production-edffe3.up.railway.app',
+]
